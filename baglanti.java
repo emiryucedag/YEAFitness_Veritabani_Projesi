@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class baglanti {
     private String username="root";
-    private String password="Buffaygomez1_";
+    private String password="1234";
     private String url="jdbc:mysql://localhost:3306/YeaFitness";
 
 

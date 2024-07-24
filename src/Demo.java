@@ -1,3 +1,5 @@
+package src;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,7 +9,7 @@ public class Demo {
     public static void main(String[] args) {
         String jdbcUrl = "jdbc:mysql://localhost:3306/yeafitness";
         String username = "root";
-        String password = "zeynep";
+        String password = "1234";
 
         Connection connection =null ;
         Statement statement = null;

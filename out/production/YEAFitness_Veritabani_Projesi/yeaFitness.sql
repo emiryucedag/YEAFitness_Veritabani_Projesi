@@ -25,13 +25,13 @@ DROP TABLE IF EXISTS `egitmen`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `egitmen` (
-  `EgitmenID` int NOT NULL,
-  `İsim` varchar(45) DEFAULT NULL,
+  `egitmen_id` int NOT NULL,
+  `isim` varchar(45) DEFAULT NULL,
   `calisma_saatleri` varchar(45) DEFAULT NULL,
-  `saha_ismi` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`EgitmenID`),
-  KEY `Saha_Ismi_idx` (`saha_ismi`),
-  CONSTRAINT `Saha_ismi` FOREIGN KEY (`saha_ismi`) REFERENCES `spor_sahasi` (`Saha Ismi`)
+  `saha_ismi_eg` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`egitmen_id`),
+  KEY `saha_ismi_id` (`saha_ismi_eg`),
+  CONSTRAINT `saha_ismi_cons` FOREIGN KEY (`saha_ismi_eg`) REFERENCES `spor_sahasi` (`saha_ismi`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,10 +53,10 @@ DROP TABLE IF EXISTS `egitmen_brans`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `egitmen_brans` (
-  `Egitmen_ID` int NOT NULL,
-  `Brans` varchar(45) NOT NULL,
-  PRIMARY KEY (`Egitmen_ID`,`Brans`),
-  CONSTRAINT `egitmen_id` FOREIGN KEY (`Egitmen_ID`) REFERENCES `egitmen` (`EgitmenID`)
+  `egitmen_ID` int NOT NULL,
+  `brans` varchar(45) NOT NULL,
+  PRIMARY KEY (`egitmen_ID`,`Brans`),
+  CONSTRAINT `egitmen_id_cons` FOREIGN KEY (`egitmen_ID`) REFERENCES `egitmen` (`egitmen_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -78,12 +78,12 @@ DROP TABLE IF EXISTS `egzersiz_programi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `egzersiz_programi` (
-  `Kullanici_id` int NOT NULL,
-  `Egzersiz Ismi` varchar(45) DEFAULT NULL,
-  `Zorluk Seviyesi` varchar(45) DEFAULT NULL,
-  `Ortalama Kalori Yakimi` decimal(10,0) DEFAULT NULL,
-  PRIMARY KEY (`Kullanici_id`),
-  CONSTRAINT `KullaniciID` FOREIGN KEY (`Kullanici_id`) REFERENCES `kullanici` (`Kullanici ID`)
+  `kullanici_ID` int NOT NULL,
+  `egzersiz_ismi` varchar(45) DEFAULT NULL,
+  `zorluk_seviyesi` varchar(45) DEFAULT NULL,
+  `ortalama_kalori_yakimi` decimal(10,0) DEFAULT NULL,
+  PRIMARY KEY (`kullanici_ID`),
+  CONSTRAINT `Kullanici_IDcons` FOREIGN KEY (`kullanici_ID`) REFERENCES `kullanici` (`kullanici_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -105,20 +105,20 @@ DROP TABLE IF EXISTS `kullanici`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `kullanici` (
-  `Kullanici ID` int NOT NULL,
-  `Isim` varchar(45) DEFAULT NULL,
+  `kullanici_id` int NOT NULL,
+  `isim` varchar(45) DEFAULT NULL,
   `hedef` varchar(45) DEFAULT NULL,
-  `Boy` int DEFAULT NULL,
-  `Kilo` decimal(10,2) DEFAULT NULL,
-  `Bazal Metabolizma` decimal(10,2) DEFAULT NULL,
-  `Cinsiyet` varchar(45) DEFAULT NULL,
-  `Dogum Tarihi` date DEFAULT NULL,
-  `Telefon numarasi` varchar(15) DEFAULT NULL,
-  `Egitmen ID` int DEFAULT NULL,
-  PRIMARY KEY (`Kullanici ID`),
-  UNIQUE KEY `KullanıcıID_UNIQUE` (`Kullanici ID`),
-  KEY `Eğitmen ID_idx` (`Egitmen ID`),
-  CONSTRAINT `Egitmen ID` FOREIGN KEY (`Egitmen ID`) REFERENCES `egitmen` (`EgitmenID`)
+  `boy` int DEFAULT NULL,
+  `kilo` decimal(10,2) DEFAULT NULL,
+  `bazal_metabolizma` decimal(10,2) DEFAULT NULL,
+  `cinsiyet` varchar(45) DEFAULT NULL,
+  `dogum_tarihi` date DEFAULT NULL,
+  `telefon_numarasi` varchar(15) DEFAULT NULL,
+  `egitmen_ID` int DEFAULT NULL,
+  PRIMARY KEY (`kullanici_id`),
+  UNIQUE KEY (`kullanici_id`),
+  KEY `Eğitmen ID_idx` (`egitmen_ID`),
+  CONSTRAINT `egitmen_IDcons` FOREIGN KEY (`egitmen_ID`) REFERENCES `egitmen` (`egitmen_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -140,10 +140,10 @@ DROP TABLE IF EXISTS `randevu_alir`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `randevu_alir` (
-  `Kullanici_id` int NOT NULL,
-  `Saha Ismi` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`Kullanici_id`),
-  CONSTRAINT `Kullanici ID` FOREIGN KEY (`Kullanici_id`) REFERENCES `kullanici` (`Kullanici ID`)
+  `kullanici_id_rand` int NOT NULL,
+  `saha_ismi_rand` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`kullanici_id_rand`),
+  CONSTRAINT `kullanici_id_rand_cons` FOREIGN KEY (`kullanici_id_rand`) REFERENCES `kullanici` (`kullanici_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -165,10 +165,10 @@ DROP TABLE IF EXISTS `spor_sahasi`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `spor_sahasi` (
-  `Saha Ismi` varchar(45) NOT NULL,
-  `Kontenjan` int DEFAULT NULL,
-  `Hizmet Saatleri` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`Saha Ismi`)
+  `saha_ismi` varchar(45) NOT NULL,
+  `kontenjan` int DEFAULT NULL,
+  `hizmet_saatleri` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`saha_ismi`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -191,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-07 18:44:38
+-- Dump completed on 2024-07-07 18:44:38kullanici`Kullanici ID`
